@@ -7,13 +7,11 @@ describe("tailwindcss-vanilla-rtl", () => {
         "borderColor": false,
         "borderRadius": false,
         "borderWidth": false,
-        "divideWidth": false,
         "inset": false,
         "margin": false,
         "padding": false,
         "scrollMargin": false,
         "scrollPadding": false,
-        "space": false,
         "textAlign": false,
       }
     `);

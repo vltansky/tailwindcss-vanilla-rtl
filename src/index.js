@@ -10,8 +10,6 @@ const vanillaRTL = plugin((helpers) => {
   corePlugins.margin(helpers);
   corePlugins.scrollMargin(helpers);
   corePlugins.scrollPadding(helpers);
-  corePlugins.space(helpers);
-  corePlugins.divideWidth(helpers);
   corePlugins.borderRadius(helpers);
   corePlugins.borderWidth(helpers);
   corePlugins.borderColor(helpers);
@@ -28,8 +26,6 @@ vanillaRTL.disabledCorePlugins = {
   margin: false,
   scrollMargin: false,
   scrollPadding: false,
-  space: false,
-  divideWidth: false,
   borderRadius: false,
   borderWidth: false,
   borderColor: false,

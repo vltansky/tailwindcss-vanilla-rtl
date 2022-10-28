@@ -9,7 +9,8 @@ import fs from 'fs'
 import * as path from 'path'
 import postcss from 'postcss'
 */
-import createUtilityPlugin from 'tailwindcss/lib/util/createUtilityPlugin'
+// import createUtilityPlugin from 'tailwindcss/lib/util/createUtilityPlugin'
+import createUtilityPlugin from './createUtilityPluginRtl'
 /*
 import buildMediaQuery from './util/buildMediaQuery'
 import escapeClassName from './util/escapeClassName'
@@ -633,16 +634,16 @@ export let corePlugins = {
   inset: createUtilityPlugin(
     'inset',
     [
-      ['inset', ['top', 'inset-inline-end', 'bottom', 'inset-inline-start']],
+      ['inset', ['top', 'right', 'bottom', 'left']],
       [
-        ['inset-x', ['inset-inline-start', 'inset-inline-end']],
+        ['inset-x', ['left', 'right']],
         ['inset-y', ['top', 'bottom']],
       ],
       [
         ['top', ['top']],
-        ['right', ['inset-inline-end']],
+        ['right', ['right'], ['left']],
         ['bottom', ['bottom']],
-        ['left', ['inset-inline-start']],
+        ['left', ['left'], ['right']],
       ],
     ],
     { supportsNegativeValues: true }
@@ -703,18 +704,19 @@ export let corePlugins = {
     [
       ['m', ['margin']],
       [
-        ['mx', ['margin-inline-start', 'margin-inline-end']],
+        ['mx', ['margin-left', 'margin-right']],
         ['my', ['margin-top', 'margin-bottom']],
       ],
       [
         ['mt', ['margin-top']],
-        ['mr', ['margin-inline-end']],
+        ['mr', ['margin-right'], ['margin-left']],
         ['mb', ['margin-bottom']],
-        ['ml', ['margin-inline-start']],
+        ['ml', ['margin-left'], ['margin-right']],
       ],
     ],
     { supportsNegativeValues: true }
   ),
+
   /*
   boxSizing: ({ addUtilities }) => {
     addUtilities({
@@ -1056,18 +1058,19 @@ export let corePlugins = {
     [
       ['scroll-m', ['scroll-margin']],
       [
-        ['scroll-mx', ['scroll-margin-inline-start', 'scroll-margin-inline-end']],
+        ['scroll-mx', ['scroll-margin-left', 'scroll-margin-right']],
         ['scroll-my', ['scroll-margin-top', 'scroll-margin-bottom']],
       ],
       [
         ['scroll-mt', ['scroll-margin-top']],
-        ['scroll-mr', ['scroll-margin-inline-end']],
+        ['scroll-mr', ['scroll-margin-right'], ['scroll-margin-left']],
         ['scroll-mb', ['scroll-margin-bottom']],
-        ['scroll-ml', ['scroll-margin-inline-start']],
+        ['scroll-ml', ['scroll-margin-left'], ['scroll-margin-right']],
       ],
     ],
     { supportsNegativeValues: true }
   ),
+
 
   /**
   * Logical Properties and Values: added with fallback.
@@ -1078,14 +1081,14 @@ export let corePlugins = {
   scrollPadding: createUtilityPlugin('scrollPadding', [
     ['scroll-p', ['scroll-padding']],
     [
-      ['scroll-px', ['scroll-padding-left', 'scroll-padding-inline-start', 'scroll-padding-right', 'scroll-padding-inline-end']],
+      ['scroll-px', ['scroll-padding-left', 'scroll-padding-right']],
       ['scroll-py', ['scroll-padding-top', 'scroll-padding-bottom']],
     ],
     [
       ['scroll-pt', ['scroll-padding-top']],
-      ['scroll-pr', ['scroll-padding-right', 'scroll-padding-inline-end']],
+      ['scroll-pr', ['scroll-padding-right'], ['scroll-padding-left']],
       ['scroll-pb', ['scroll-padding-bottom']],
-      ['scroll-pl', ['scroll-padding-left', 'scroll-padding-inline-start']],
+      ['scroll-pl', ['scroll-padding-left'], ['scroll-padding-right']],
     ],
   ]),
   /*
@@ -1254,88 +1257,76 @@ export let corePlugins = {
   * Replaced `margin-left` with `margin-inline-start`, `margin-right` with `margin-inline-end`.
   * See https://caniuse.com/css-logical-props.
   */
-  space: ({ matchUtilities, addUtilities, theme }) => {
-    matchUtilities(
-      {
-        'space-x': (value) => {
-          value = value === '0' ? '0px' : value
+  // space: ({ matchUtilities, addUtilities, theme }) => {
+  //   matchUtilities(
+  //     {
+  //       'space-x': (value) => {
+  //         value = value === '0' ? '0px' : value
 
-          return {
-            '& > :not([hidden]) ~ :not([hidden])': {
-              '--tw-space-x-reverse': '0',
-              'margin-inline-end': `calc(${value} * var(--tw-space-x-reverse))`,
-              'margin-inline-start': `calc(${value} * calc(1 - var(--tw-space-x-reverse)))`,
-            },
-          }
-        },
-        'space-y': (value) => {
-          value = value === '0' ? '0px' : value
+  //         return {
+  //           '& > :not([hidden]) ~ :not([hidden])': {
+  //             '--tw-space-x-reverse': '0',
+  //             'margin-right': `calc(${value} * var(--tw-space-x-reverse))`,
+  //             'margin-left': `calc(${value} * calc(1 - var(--tw-space-x-reverse)))`,
+  //           },
+  //         }
+  //       },
+  //       'space-y': (value) => {
+  //         value = value === '0' ? '0px' : value
 
-          return {
-            '& > :not([hidden]) ~ :not([hidden])': {
-              '--tw-space-y-reverse': '0',
-              'margin-top': `calc(${value} * calc(1 - var(--tw-space-y-reverse)))`,
-              'margin-bottom': `calc(${value} * var(--tw-space-y-reverse))`,
-            },
-          }
-        },
-      },
-      { values: theme('space'), supportsNegativeValues: true }
-    )
+  //         return {
+  //           '& > :not([hidden]) ~ :not([hidden])': {
+  //             '--tw-space-y-reverse': '0',
+  //             'margin-top': `calc(${value} * calc(1 - var(--tw-space-y-reverse)))`,
+  //             'margin-bottom': `calc(${value} * var(--tw-space-y-reverse))`,
+  //           },
+  //         }
+  //       },
+  //     },
+  //     { values: theme('space'), supportsNegativeValues: true }
+  //   )
 
-    addUtilities({
-      '.space-y-reverse > :not([hidden]) ~ :not([hidden])': { '--tw-space-y-reverse': '1' },
-      '.space-x-reverse > :not([hidden]) ~ :not([hidden])': { '--tw-space-x-reverse': '1' },
-    })
-  },
+  //   addUtilities({
+  //     '.space-y-reverse > :not([hidden]) ~ :not([hidden])': { '--tw-space-y-reverse': '1' },
+  //     '.space-x-reverse > :not([hidden]) ~ :not([hidden])': { '--tw-space-x-reverse': '1' },
+  //   })
+  // },
 
   /**
   * Logical Properties and Values: overriding defaults.
   * Replaced `border-left-width` with `border-inline-start-width`, `border-right-width` with `border-inline-end-width`.
   * See https://caniuse.com/?search=border-inline-start-width.
   */
-  divideWidth: ({ matchUtilities, addUtilities, theme }) => {
-    matchUtilities(
-      {
-        'divide-x': (value) => {
-          value = value === '0' ? '0px' : value
+  // divideWidth: ({ matchUtilities, addUtilities, theme }) => {
+  //   matchUtilities(
+  //     {
+  //       'divide-x': (value) => {
+  //         value = value === '0' ? '0px' : value
 
-          return {
-            '& > :not([hidden]) ~ :not([hidden])': {
-              '@defaults border-width': {},
-              '--tw-divide-x-reverse': '0',
-              'border-inline-end-width': `calc(${value} * var(--tw-divide-x-reverse))`,
-              'border-inline-start-width': `calc(${value} * calc(1 - var(--tw-divide-x-reverse)))`,
-            },
-          }
-        },
-        'divide-y': (value) => {
-          value = value === '0' ? '0px' : value
+  //         return {
+  //           '& > :not([hidden]) ~ :not([hidden])': {
+  //             '@defaults border-width': {},
+  //             '--tw-divide-x-reverse': '0',
+  //             'border-right-width': `calc(${value} * var(--tw-divide-x-reverse))`,
+  //             'border-left-width': `calc(${value} * calc(1 - var(--tw-divide-x-reverse)))`,
+  //           },
+  //         }
+  //       },
+  //       'divide-y': (value) => {
+  //         value = value === '0' ? '0px' : value
 
-          return {
-            '& > :not([hidden]) ~ :not([hidden])': {
-              '@defaults border-width': {},
-              '--tw-divide-y-reverse': '0',
-              'border-top-width': `calc(${value} * calc(1 - var(--tw-divide-y-reverse)))`,
-              'border-bottom-width': `calc(${value} * var(--tw-divide-y-reverse))`,
-            },
-          }
-        },
-      },
-      { values: theme('divideWidth'), type: ['line-width', 'length', 'any'] }
-    )
-
-    addUtilities({
-      '.divide-y-reverse > :not([hidden]) ~ :not([hidden])': {
-        '@defaults border-width': {},
-        '--tw-divide-y-reverse': '1',
-      },
-      '.divide-x-reverse > :not([hidden]) ~ :not([hidden])': {
-        '@defaults border-width': {},
-        '--tw-divide-x-reverse': '1',
-      },
-    })
-  },
+  //         return {
+  //           '& > :not([hidden]) ~ :not([hidden])': {
+  //             '@defaults border-width': {},
+  //             '--tw-divide-y-reverse': '0',
+  //             'border-top-width': `calc(${value} * calc(1 - var(--tw-divide-y-reverse)))`,
+  //             'border-bottom-width': `calc(${value} * var(--tw-divide-y-reverse))`,
+  //           },
+  //         }
+  //       },
+  //     },
+  //     { values: theme('divideWidth'), type: ['line-width', 'length', 'any'] }
+  //   )
   /*
   divideStyle: ({ addUtilities }) => {
     addUtilities({
@@ -1494,16 +1485,16 @@ export let corePlugins = {
   borderRadius: createUtilityPlugin('borderRadius', [
     ['rounded', ['border-radius']],
     [
-      ['rounded-t', ['border-top-left-radius', 'border-start-start-radius', 'border-top-right-radius', 'border-start-end-radius']],
-      ['rounded-r', ['border-top-right-radius', 'border-start-end-radius', 'border-bottom-right-radius', 'border-end-end-radius']],
-      ['rounded-b', ['border-bottom-right-radius', 'border-end-end-radius', 'border-bottom-left-radius', 'border-end-start-radius']],
-      ['rounded-l', ['border-top-left-radius', 'border-start-start-radius', 'border-bottom-left-radius', 'border-end-start-radius']],
+      ['rounded-t', ['border-top-left-radius', 'border-top-right-radius']],
+      ['rounded-r', ['border-top-right-radius', 'border-bottom-right-radius'], ['border-top-left-radius', 'border-bottom-left-radius']],
+      ['rounded-b', ['border-bottom-right-radius', 'border-bottom-left-radius']],
+      ['rounded-l', ['border-top-left-radius', 'border-bottom-left-radius'], ['border-top-right-radius', 'border-bottom-right-radius']],
     ],
     [
-      ['rounded-tl', ['border-top-left-radius', 'border-start-start-radius']],
-      ['rounded-tr', ['border-top-right-radius', 'border-start-end-radius']],
-      ['rounded-br', ['border-bottom-right-radius', 'border-end-end-radius']],
-      ['rounded-bl', ['border-bottom-left-radius', 'border-end-start-radius']],
+      ['rounded-tl', ['border-top-left-radius'], ['border-top-right-radius']],
+      ['rounded-tr', ['border-top-right-radius'], ['border-top-left-radius']],
+      ['rounded-br', ['border-bottom-right-radius'], ['border-bottom-left-radius']],
+      ['rounded-bl', ['border-bottom-left-radius'], ['border-bottom-right-radius']],
     ],
   ]),
 
@@ -1517,14 +1508,14 @@ export let corePlugins = {
     [
       ['border', [['@defaults border-width', {}], 'border-width']],
       [
-        ['border-x', [['@defaults border-width', {}], 'border-inline-start-width', 'border-inline-end-width']],
+        ['border-x', [['@defaults border-width', {}], 'border-left-width', 'border-right-width']],
         ['border-y', [['@defaults border-width', {}], 'border-top-width', 'border-bottom-width']],
       ],
       [
         ['border-t', [['@defaults border-width', {}], 'border-top-width']],
-        ['border-r', [['@defaults border-width', {}], 'border-inline-end-width']],
+        ['border-r', [['@defaults border-width', {}], 'border-right-width'], [['@defaults border-width', {}], 'border-left-width']],
         ['border-b', [['@defaults border-width', {}], 'border-bottom-width']],
-        ['border-l', [['@defaults border-width', {}], 'border-inline-start-width']],
+        ['border-l', [['@defaults border-width', {}], 'border-left-width'], [['@defaults border-width', {}], 'border-right-width']],
       ],
     ],
     { type: ['line-width', 'length'] }
@@ -1546,7 +1537,7 @@ export let corePlugins = {
   * Replaced `border-left-color` with `border-inline-start-color`, `border-right-color` with `border-inline-end-color`.
   * See https://caniuse.com/?search=border-inline-start-color.
   */
-  borderColor: ({ matchUtilities, theme, corePlugins }) => {
+   borderColor: ({ matchUtilities, theme, corePlugins }) => {
     matchUtilities(
       {
         border: (value) => {
@@ -1574,14 +1565,14 @@ export let corePlugins = {
         'border-x': (value) => {
           if (!corePlugins('borderOpacity')) {
             return {
-              'border-inline-start-color': toColorValue(value),
-              'border-inline-end-color': toColorValue(value),
+              'border-left-color': toColorValue(value),
+              'border-right-color': toColorValue(value),
             }
           }
 
           return withAlphaVariable({
             color: value,
-            property: ['border-inline-start-color', 'border-inline-end-color'],
+            property: ['border-left-color', 'border-right-color'],
             variable: '--tw-border-opacity',
           })
         },
@@ -1624,15 +1615,27 @@ export let corePlugins = {
         'border-r': (value) => {
           if (!corePlugins('borderOpacity')) {
             return {
-              'border-inline-end-color': toColorValue(value),
+              '[dir="rtl"] &': {
+                'border-right-color': toColorValue(value),
+              },
+              '[dir="ltr"] &': {
+                'border-left-color': toColorValue(value),
+              }
             }
           }
 
-          return withAlphaVariable({
-            color: value,
-            property: 'border-inline-end-color',
-            variable: '--tw-border-opacity',
-          })
+          return {
+            '[dir="rtl"] &': withAlphaVariable({
+                color: value,
+                property: 'border-right-color',
+                variable: '--tw-border-opacity',
+              }),
+              '[dir="ltr"] &': withAlphaVariable({
+                  color: value,
+                  property: 'border-left-color',
+                  variable: '--tw-border-opacity',
+                })
+          }
         },
         'border-b': (value) => {
           if (!corePlugins('borderOpacity')) {
@@ -1650,15 +1653,27 @@ export let corePlugins = {
         'border-l': (value) => {
           if (!corePlugins('borderOpacity')) {
             return {
-              'border-inline-start-color': toColorValue(value),
+              '[dir="rtl"] &': {
+               'border-left-color': toColorValue(value),
+              },
+              '[dir="ltr"] &': {
+                'border-right-color': toColorValue(value),
+              }
             }
           }
 
-          return withAlphaVariable({
-            color: value,
-            property: 'border-inline-start-color',
-            variable: '--tw-border-opacity',
-          })
+          return {
+            '[dir="rtl"] &': withAlphaVariable({
+              color: value,
+              property: 'border-left-color',
+              variable: '--tw-border-opacity',
+              }),
+            '[dir="ltr"] &': withAlphaVariable({
+              color: value,
+              property: 'border-right-color',
+              variable: '--tw-border-opacity',
+              })
+          }
         },
       },
       {
@@ -1845,21 +1860,21 @@ export let corePlugins = {
   padding: createUtilityPlugin('padding', [
     ['p', ['padding']],
     [
-      ['px', ['padding-inline-start', 'padding-inline-end']],
+      ['px', ['padding-left', 'padding-right']],
       ['py', ['padding-top', 'padding-bottom']],
     ],
     [
       ['pt', ['padding-top']],
-      ['pr', ['padding-inline-end']],
+      ['pr', ['padding-right'], ['padding-left']],
       ['pb', ['padding-bottom']],
-      ['pl', ['padding-inline-start']],
+      ['pl', ['padding-left'], ['padding-right']],
     ],
   ]),
 
   /**
   * Logical Properties and Values: overriding defaults.
   * Replaced `left` with `start`, `right` with `end` for values.
-  * See https://caniuse.com/css-logical-props.
+  * See https://caniuse.com/mdn-css_properties_text-align_flow_relative_values_start_and_end.
   */
   textAlign: ({ addUtilities }) => {
     addUtilities({

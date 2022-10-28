@@ -9,8 +9,6 @@ describe("corePlugins", () => {
         "margin",
         "scrollMargin",
         "scrollPadding",
-        "space",
-        "divideWidth",
         "borderRadius",
         "borderWidth",
         "borderColor",

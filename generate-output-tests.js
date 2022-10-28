@@ -1,6 +1,6 @@
-import postcss from "postcss";
-import vanillaRTL from "../dist";
-import tailwindcss from "tailwindcss";
+const postcss = require("postcss");
+const tailwindcss = require("tailwindcss");
+const vanillaRTL = require("./dist");
 
 const rules = {
   "mx-[JIT_VALUE]":
@@ -51,39 +51,39 @@ const rules = {
     '[dir="rtl"] .rounded-bl-\\[JIT_VALUE\\] { border-bottom-left-radius: JIT VALUE } [dir="ltr"] .rounded-bl-\\[JIT_VALUE\\] { border-bottom-right-radius: JIT VALUE }',
   "border-x-[5px]":
     ".border-x-\\[5px\\] { border-left-width: 5px; border-right-width: 5px }",
-  "border-r-[5px]":
-    '[dir="rtl"] .border-r-\\[5px\\] { border-right-width: 5px } [dir="ltr"] .border-r-\\[5px\\] { border-left-width: 5px }',
-  "border-l-[5px]":
-    '[dir="rtl"] .border-l-\\[5px\\] { border-left-width: 5px } [dir="ltr"] .border-l-\\[5px\\] { border-right-width: 5px }',
+  "border-r-[5px]": ".border-r-\\[5px\\] { border-right-width: 5px }",
+  "border-l-[5px]": ".border-l-\\[5px\\] { border-left-width: 5px }",
   "border-x-[#ccc]":
     ".border-x-\\[\\#ccc\\] { --tw-border-opacity: 1; border-left-color: rgb(204 204 204 / var(--tw-border-opacity)); border-right-color: rgb(204 204 204 / var(--tw-border-opacity)) }",
   "border-r-[#ccc]":
-    '[dir="rtl"] .border-r-\\[\\#ccc\\] { --tw-border-opacity: 1; border-right-color: rgb(204 204 204 / var(--tw-border-opacity)) } [dir="ltr"] .border-r-\\[\\#ccc\\] { --tw-border-opacity: 1; border-left-color: rgb(204 204 204 / var(--tw-border-opacity)) }',
+    ".border-r-\\[\\#ccc\\] { --tw-border-opacity: 1; border-right-color: rgb(204 204 204 / var(--tw-border-opacity)) }",
   "border-l-[#ccc]":
-    '[dir="rtl"] .border-l-\\[\\#ccc\\] { --tw-border-opacity: 1; border-left-color: rgb(204 204 204 / var(--tw-border-opacity)) } [dir="ltr"] .border-l-\\[\\#ccc\\] { --tw-border-opacity: 1; border-right-color: rgb(204 204 204 / var(--tw-border-opacity)) }',
+    ".border-l-\\[\\#ccc\\] { --tw-border-opacity: 1; border-left-color: rgb(204 204 204 / var(--tw-border-opacity)) }",
   "divide-x-[JIT_VALUE]":
     ".divide-x-\\[JIT_VALUE\\] > :not([hidden]) ~ :not([hidden]) { --tw-divide-x-reverse: 0; border-right-width: calc(JIT VALUE * var(--tw-divide-x-reverse)); border-left-width: calc(JIT VALUE * calc(1 - var(--tw-divide-x-reverse))) }",
-  "text-right": ".text-right { text-align: end }",
-  "text-left": ".text-left { text-align: start }",
+  "text-right":
+    '[dir="rtl"] .text-right { text-align: right } [dir="ltr"] .text-right { text-align: left }',
+  "text-left":
+    '[dir="rtl"] .text-left { text-align: left } [dir="ltr"] .text-left { text-align: right }',
 };
 
 const trimmer = (val) => val.replace(/\s+/g, " ").trim();
-Object.entries(rules).forEach(([className, expected]) => {
-  it(className, () => {
-    const output = postcss([
-      tailwindcss({
-        content: [
-          {
-            raw: className,
-          },
-        ],
-        plugins: [vanillaRTL],
-        corePlugins: {
-          ...vanillaRTL.disabledCorePlugins,
+const obj = Object.keys(rules).reduce((obj, className) => {
+  const output = postcss([
+    tailwindcss({
+      content: [
+        {
+          raw: className,
         },
-      }),
-    ]).process("@tailwind utilities").css;
+      ],
+      plugins: [vanillaRTL],
+      corePlugins: {
+        ...vanillaRTL.disabledCorePlugins,
+      },
+    }),
+  ]).process("@tailwind utilities").css;
 
-    expect(trimmer(output)).toBe(trimmer(expected));
-  });
-});
+  obj[className] = trimmer(output);
+  return obj;
+}, {});
+console.log(obj);
