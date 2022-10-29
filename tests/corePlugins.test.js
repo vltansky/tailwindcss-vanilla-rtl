@@ -12,6 +12,7 @@ describe("corePlugins", () => {
         "borderRadius",
         "borderWidth",
         "borderColor",
+        "borderOpacity",
         "padding",
         "textAlign",
       ]

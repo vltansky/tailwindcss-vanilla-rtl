@@ -5,6 +5,7 @@ describe("tailwindcss-vanilla-rtl", () => {
     expect(pluginFn.disabledCorePlugins).toMatchInlineSnapshot(`
       {
         "borderColor": false,
+        "borderOpacity": false,
         "borderRadius": false,
         "borderWidth": false,
         "inset": false,

@@ -1,6 +1,6 @@
 {
   "name": "@vltansky/tailwindcss-rtl-first",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Vlad Tansky",
   "license": "MIT",
   "description": "Simple right-to-left (RTL) language support for Tailwind, switching vanilla utilities to CSS logical properties and values",

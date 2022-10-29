@@ -1541,11 +1541,11 @@ export let corePlugins = {
     matchUtilities(
       {
         border: (value) => {
-          if (!corePlugins('borderOpacity')) {
-            return {
-              'border-color': toColorValue(value),
-            }
-          }
+          // if (!corePlugins('borderOpacity')) {
+          //   return {
+          //     'border-color': toColorValue(value),
+          //   }
+          // }
 
           return withAlphaVariable({
             color: value,
@@ -1563,12 +1563,12 @@ export let corePlugins = {
     matchUtilities(
       {
         'border-x': (value) => {
-          if (!corePlugins('borderOpacity')) {
-            return {
-              'border-left-color': toColorValue(value),
-              'border-right-color': toColorValue(value),
-            }
-          }
+          // if (!corePlugins('borderOpacity')) {
+          //   return {
+          //     'border-left-color': toColorValue(value),
+          //     'border-right-color': toColorValue(value),
+          //   }
+          // }
 
           return withAlphaVariable({
             color: value,
@@ -1577,12 +1577,12 @@ export let corePlugins = {
           })
         },
         'border-y': (value) => {
-          if (!corePlugins('borderOpacity')) {
-            return {
-              'border-top-color': toColorValue(value),
-              'border-bottom-color': toColorValue(value),
-            }
-          }
+          // if (!corePlugins('borderOpacity')) {
+          //   return {
+          //     'border-top-color': toColorValue(value),
+          //     'border-bottom-color': toColorValue(value),
+          //   }
+          // }
 
           return withAlphaVariable({
             color: value,
@@ -1600,11 +1600,11 @@ export let corePlugins = {
     matchUtilities(
       {
         'border-t': (value) => {
-          if (!corePlugins('borderOpacity')) {
-            return {
-              'border-top-color': toColorValue(value),
-            }
-          }
+          // if (!corePlugins('borderOpacity')) {
+          //   return {
+          //     'border-top-color': toColorValue(value),
+          //   }
+          // }
 
           return withAlphaVariable({
             color: value,
@@ -1613,16 +1613,16 @@ export let corePlugins = {
           })
         },
         'border-r': (value) => {
-          if (!corePlugins('borderOpacity')) {
-            return {
-              '[dir="rtl"] &': {
-                'border-right-color': toColorValue(value),
-              },
-              '[dir="ltr"] &': {
-                'border-left-color': toColorValue(value),
-              }
-            }
-          }
+          // if (!corePlugins('borderOpacity')) {
+          //   return {
+          //     '[dir="rtl"] &': {
+          //       'border-right-color': toColorValue(value),
+          //     },
+          //     '[dir="ltr"] &': {
+          //       'border-left-color': toColorValue(value),
+          //     }
+          //   }
+          // }
 
           return {
             '[dir="rtl"] &': withAlphaVariable({
@@ -1638,11 +1638,11 @@ export let corePlugins = {
           }
         },
         'border-b': (value) => {
-          if (!corePlugins('borderOpacity')) {
-            return {
-              'border-bottom-color': toColorValue(value),
-            }
-          }
+          // if (!corePlugins('borderOpacity')) {
+          //   return {
+          //     'border-bottom-color': toColorValue(value),
+          //   }
+          // }
 
           return withAlphaVariable({
             color: value,
@@ -1651,16 +1651,16 @@ export let corePlugins = {
           })
         },
         'border-l': (value) => {
-          if (!corePlugins('borderOpacity')) {
-            return {
-              '[dir="rtl"] &': {
-               'border-left-color': toColorValue(value),
-              },
-              '[dir="ltr"] &': {
-                'border-right-color': toColorValue(value),
-              }
-            }
-          }
+          // if (!corePlugins('borderOpacity')) {
+          //   return {
+          //     '[dir="rtl"] &': {
+          //      'border-left-color': toColorValue(value),
+          //     },
+          //     '[dir="ltr"] &': {
+          //       'border-right-color': toColorValue(value),
+          //     }
+          //   }
+          // }
 
           return {
             '[dir="rtl"] &': withAlphaVariable({
@@ -1682,10 +1682,10 @@ export let corePlugins = {
       }
     )
   },
-  /*
   borderOpacity: createUtilityPlugin('borderOpacity', [
     ['border-opacity', ['--tw-border-opacity']],
   ]),
+  /*
 
   backgroundColor: ({ matchUtilities, theme, corePlugins }) => {
     matchUtilities(
