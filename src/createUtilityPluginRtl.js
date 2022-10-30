@@ -35,11 +35,11 @@ export default function createUtilityPluginRtl(
                 return generateProperties(rtlProperties, transformValue(value));
               }
               return {
-                '[dir="rtl"] &': generateProperties(
+                'body[dir="rtl"] &': generateProperties(
                   rtlProperties,
                   transformValue(value)
                 ),
-                '[dir="ltr"] &': generateProperties(
+                'body[dir="ltr"] &': generateProperties(
                   ltrProperties,
                   transformValue(value)
                 ),

@@ -191,7 +191,7 @@ export let variantPlugins = {
         'Preview features are not covered by semver, and may be improved in breaking ways at any time.',
       ])
 
-      return '[dir="ltr"] &'
+      return 'body[dir="ltr"] &'
     })
 
     addVariant('rtl', () => {
@@ -200,7 +200,7 @@ export let variantPlugins = {
         'Preview features are not covered by semver, and may be improved in breaking ways at any time.',
       ])
 
-      return '[dir="rtl"] &'
+      return 'body[dir="rtl"] &'
     })
   },
 
@@ -1615,22 +1615,22 @@ export let corePlugins = {
         'border-r': (value) => {
           // if (!corePlugins('borderOpacity')) {
           //   return {
-          //     '[dir="rtl"] &': {
+          //     'body[dir="rtl"] &': {
           //       'border-right-color': toColorValue(value),
           //     },
-          //     '[dir="ltr"] &': {
+          //     'body[dir="ltr"] &': {
           //       'border-left-color': toColorValue(value),
           //     }
           //   }
           // }
 
           return {
-            '[dir="rtl"] &': withAlphaVariable({
+            'body[dir="rtl"] &': withAlphaVariable({
                 color: value,
                 property: 'border-right-color',
                 variable: '--tw-border-opacity',
               }),
-              '[dir="ltr"] &': withAlphaVariable({
+              'body[dir="ltr"] &': withAlphaVariable({
                   color: value,
                   property: 'border-left-color',
                   variable: '--tw-border-opacity',
@@ -1653,22 +1653,22 @@ export let corePlugins = {
         'border-l': (value) => {
           // if (!corePlugins('borderOpacity')) {
           //   return {
-          //     '[dir="rtl"] &': {
+          //     'body[dir="rtl"] &': {
           //      'border-left-color': toColorValue(value),
           //     },
-          //     '[dir="ltr"] &': {
+          //     'body[dir="ltr"] &': {
           //       'border-right-color': toColorValue(value),
           //     }
           //   }
           // }
 
           return {
-            '[dir="rtl"] &': withAlphaVariable({
+            'body[dir="rtl"] &': withAlphaVariable({
               color: value,
               property: 'border-left-color',
               variable: '--tw-border-opacity',
               }),
-            '[dir="ltr"] &': withAlphaVariable({
+            'body[dir="ltr"] &': withAlphaVariable({
               color: value,
               property: 'border-right-color',
               variable: '--tw-border-opacity',
