@@ -63,8 +63,8 @@ const rules = {
     'body[dir="rtl"] .border-l-\\[\\#ccc\\] { --tw-border-opacity: 1; border-left-color: rgb(204 204 204 / var(--tw-border-opacity)) } body[dir="ltr"] .border-l-\\[\\#ccc\\] { --tw-border-opacity: 1; border-right-color: rgb(204 204 204 / var(--tw-border-opacity)) }',
   "divide-x-[JIT_VALUE]":
     ".divide-x-\\[JIT_VALUE\\] > :not([hidden]) ~ :not([hidden]) { --tw-divide-x-reverse: 0; border-right-width: calc(JIT VALUE * var(--tw-divide-x-reverse)); border-left-width: calc(JIT VALUE * calc(1 - var(--tw-divide-x-reverse))) }",
-  "text-right": ".text-right { text-align: end }",
-  "text-left": ".text-left { text-align: start }",
+  "text-right": ".text-right { text-align: start }",
+  "text-left": ".text-left { text-align: end }",
 };
 
 const trimmer = (val) => val.replace(/\s+/g, " ").trim();

@@ -1878,9 +1878,9 @@ export let corePlugins = {
   */
   textAlign: ({ addUtilities }) => {
     addUtilities({
-      '.text-left': { 'text-align': 'start' },
+      '.text-left': { 'text-align': 'end' },
       '.text-center': { 'text-align': 'center' },
-      '.text-right': { 'text-align': 'end' },
+      '.text-right': { 'text-align': 'start' },
       '.text-justify': { 'text-align': 'justify' },
       '.text-start': { 'text-align': 'start' },
       '.text-end': { 'text-align': 'end' },
